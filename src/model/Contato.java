@@ -1,8 +1,8 @@
 package model;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Contato {
 	private Long id;
@@ -10,13 +10,12 @@ public class Contato {
 	private String email;
 	private String endereco;
 	private Calendar dataNascimento;
-	
-	public Contato(){
-		
+
+	public Contato() {
+
 	}
-	
-	
-	public Contato(String nome, String email, String endereco, Calendar dataNascimento) {		
+
+	public Contato(String nome, String email, String endereco, Calendar dataNascimento) {
 		this.nome = nome;
 		this.email = email;
 		this.endereco = endereco;
@@ -59,10 +58,14 @@ public class Contato {
 		return dataNascimento;
 	}
 
+	public String getDataNascimentoFormatada(String pattern) {
+		return new SimpleDateFormat(pattern).format(dataNascimento.getTime());
+
+	}
+
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
 
 	@Override
 	public String toString() {
@@ -70,6 +73,5 @@ public class Contato {
 		return "Contato [id=" + id + ", nome=" + nome + ", email=" + email + ", endereco=" + endereco
 				+ ", dataNascimento=" + fmt.format(dataNascimento.getTime()) + "]";
 	}
-	
-	
+
 }

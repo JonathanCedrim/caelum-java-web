@@ -19,6 +19,26 @@ import model.LogicaDeNegocioException;
 
 @WebServlet("/adicionaContato")
 public class adicionaContato extends HttpServlet {
+	int contador = 0;
+	
+	@Override
+	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
+		super.service(arg0, arg1);
+		
+		contador++;
+		
+		PrintWriter out = arg1.getWriter();
+		
+		out.println("contador servlet " + contador);
+	}
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();		
+		contador++;
+		System.out.println(contador);
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
