@@ -105,16 +105,16 @@ public class ContatoDAO {
 		} finally {
 			closeConnection();
 		}
-
 	}
 
-	public void removeById(Contato contato) throws SQLException {
+	public void removeById(Long id) throws SQLException {
 		try {
+			conn = ConnectionFactory.getConnection();
 			String sql = "delete from contatos where id=?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setLong(1, contato.getId());
+			stmt.setLong(1, id);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new LogicaDeNegocioException("erro ao remover contato: " + e);
@@ -123,13 +123,14 @@ public class ContatoDAO {
 		}
 	}
 
-	public void removePeloNome(Contato contato) throws SQLException {
+	public void removeByName(String name) throws SQLException {
 		try {
+			conn = ConnectionFactory.getConnection();
 			String sql = "delete from contatos where nome=?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, contato.getNome());
+			stmt.setString(1, name);
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
