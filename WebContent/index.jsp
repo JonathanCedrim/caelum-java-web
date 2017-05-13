@@ -5,11 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta lang=charset-UTF8 />
 <title>Agenda</title>
 </head>
 <body>
-	<%--comentario--%>
+	<c:import url="jsp/cabecalho.jsp" />
+
 	<%@page import="java.util.*, control.*, model.*"%>
 
 	<%
@@ -18,22 +20,22 @@
 	<h1>Agenda</h1>
 	<nav>
 		<ul>
-			<li><a href="html/adicionaContato.html">adicionar</a></li>
+			<li><a href="jsp/adiciona-contato.jsp">adicionar</a></li>
 		</ul>
 	</nav>
 	<section>
 		<table>
 			<tr>
-				<th>nome</th>
-				<th>email</th>
-				<th>endereco</th>
-				<th>nascimento</th>
+				<th>NOME</th>
+				<th>EMAIL</th>
+				<th>ENDERECO</th>
+				<th>NASCIMENTO</th>
 			</tr>
 			<%
 				ContatoService dao = new ContatoService();
 				Contato contato = null;
 
-				Map contatos = dao.getContatos();
+				Map<String, ?> contatos = dao.getContatos();
 
 				Set<String> chaves = contatos.keySet();
 
@@ -54,6 +56,9 @@
 			%>
 		</table>
 	</section>
-	<footer><%=desenvolvido%></footer>
+	<footer>
+		<c:import url="jsp/rodape.jsp" />
+		<%=desenvolvido%>
+	</footer>
 </body>
 </html>

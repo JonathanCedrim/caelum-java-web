@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/anotacao")
-public class AnnotationServlet extends HttpServlet{
-	
+public class AnnotationServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, IOException {
-	
-		PrintWriter out  = resp.getWriter();
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		PrintWriter out = resp.getWriter();
+
 		out.println("modificado por annotation");
-	}	
+	}
 }

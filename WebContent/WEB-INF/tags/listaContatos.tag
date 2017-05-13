@@ -5,7 +5,7 @@
 <%@ attribute name="dao" required="true"%>
 
 
-<c:forEach var="contato" items="${dao.getContatos()}" varStatus="id">
+<c:forEach var="contato" items="${dao.getcontatos()}" varStatus="id">
 	<tr bgcolor="#${id.count % 2 == 0 ? 'aaee88' : 'ffffff' }">
 		<td>${id.count}</td>
 		<td><c:if test="${not empty contato.getValue().nome}">

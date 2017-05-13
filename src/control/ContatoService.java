@@ -3,12 +3,11 @@ package control;
 import java.sql.SQLException;
 import java.util.Map;
 
-import javafx.scene.control.TreeTableRow;
 import model.Contato;
 import model.LogicaDeNegocioException;
 
 public class ContatoService  {
-	private ContatoDAO dao = new ContatoDAO();
+	ContatoDAO dao = new ContatoDAO();
 
 	public void addContato(Contato contato) {
 		try {
@@ -18,9 +17,9 @@ public class ContatoService  {
 		}
 	}
 
-	public Map getContatos() {
+	public Map<String, Contato> getContatos() {
 		try {
-			Map contatos = dao.getContatos();
+			Map<String, Contato> contatos = dao.getContatos();
 			return contatos;
 		} catch (SQLException e) {
 			throw new LogicaDeNegocioException("erro ao recuperar contatos: " + e);

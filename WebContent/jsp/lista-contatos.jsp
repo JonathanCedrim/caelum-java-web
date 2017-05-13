@@ -13,8 +13,6 @@
 </head>
 <body>
 	<c:import url="cabecalho.jsp" />
-
-
 	<table>
 		<tr>
 			<th>ID</th>
@@ -23,21 +21,24 @@
 			<th>ENDERECO</th>
 			<th>NASCIMENTO</th>
 		</tr>
-		<%--usando if --%>
-		
-		<dao:listaContatos dao="${param.dao}"/>
-	</table>
+		<c:forEach var="contato" items="${dao.getContatos()}" varStatus="id">
 
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>NOME</th>
-			<th>EMAIL</th>
-			<th>ENDERECO</th>
-			<th>NASCIMENTO</th>
-		</tr>
-		<%--usando switch --%>
-		<dao:listaContatosSwitch dao="${param.dao}" />
+
+			<td>${id.count}</td>
+			<c:choose>
+				<c:when test="${not empty contato.getValue().nome}">
+					<td>${contato.getValue().nome}</td>
+				</c:when>
+				<c:otherwise>
+					<td><strong>Empty</strong></td>
+				</c:otherwise>
+			</c:choose>
+
+			<td>${contato.getValue().email}</td>
+			<td>${contato.getValue().endereco}</td>
+			<td><fmt:formatDate
+					value="${contato.getValue().dataNascimento.time}" pattern="dd/MM/y" /></td>
+		</c:forEach>
 	</table>
 	<c:import url="rodape.jsp" />
 </body>

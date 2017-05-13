@@ -19,16 +19,17 @@ import model.LogicaDeNegocioException;
 
 @WebServlet("/AdicionaContato")
 public class AdicionaContato extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ContatoService contatoService = new ContatoService();
+		ContatoService dao = new ContatoService();
 		Contato contato = createContato(req);
 
-		contatoService.addContato(contato);
-		
+		dao.addContato(contato);
+
 		RequestDispatcher rq = req.getRequestDispatcher("/jsp/contato-adicionado.jsp");
-		
+
 		rq.forward(req, resp);
 	}
 

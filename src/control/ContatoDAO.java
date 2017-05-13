@@ -15,11 +15,10 @@ import model.LogicaDeNegocioException;
 
 public class ContatoDAO {
 
-	private Connection conn = null;
+	private Connection conn = ConnectionFactory.getConnection();
 	private PreparedStatement stmt = null;
 
 	public void addContato(Contato contato) throws SQLException {
-		this.conn = ConnectionFactory.getConnection();
 		String sql = "insert into contatos " + "(nome, email, endereco, dataNascimento)" + "values(?, ?, ?, ?)";
 
 		try {
@@ -42,10 +41,10 @@ public class ContatoDAO {
 		try {
 			String sql = "select * from contatos";
 
-			stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 
 			ResultSet rs = stmt.executeQuery();
-			Map contatos = new HashMap<String, Contato>();
+			Map<String, Contato> contatos = new HashMap<String, Contato>();
 			while (rs.next()) {
 				Contato contato = createContato(rs);
 				contatos.put(contato.getNome(), contato);
@@ -57,7 +56,6 @@ public class ContatoDAO {
 		} finally {
 			closeConnection();
 		}
-
 	}
 
 	public Contato getContatoById(Long id) throws SQLException {
@@ -85,13 +83,12 @@ public class ContatoDAO {
 
 	public Map<String, Contato> findByName(String nome) throws SQLException {
 		String sql = "select * from contatos where lower(nome) like ?";
-		try {
-			conn = ConnectionFactory.getConnection();
+		try {			
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%" + nome.toLowerCase() + "%");
 
 			ResultSet rs = stmt.executeQuery();
-			Map contatos = new HashMap<String, Contato>();
+			Map<String, Contato> contatos = new HashMap<String, Contato>();
 
 			while (rs.next()) {
 				Contato contato = createContato(rs);
@@ -124,8 +121,7 @@ public class ContatoDAO {
 	}
 
 	public void removeByName(String name) throws SQLException {
-		try {
-			conn = ConnectionFactory.getConnection();
+		try {		
 			String sql = "delete from contatos where nome=?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -135,7 +131,7 @@ public class ContatoDAO {
 
 		} catch (SQLException e) {
 			throw new LogicaDeNegocioException("erro ao remover contato: " + e);
-		}finally{
+		} finally {
 			closeConnection();
 		}
 	}
@@ -161,7 +157,7 @@ public class ContatoDAO {
 			stmt.execute();
 		} catch (SQLException e) {
 			throw new LogicaDeNegocioException("Erro ao salvar contato: " + e);
-		}finally{
+		} finally {
 			closeConnection();
 		}
 	}

@@ -23,7 +23,7 @@
 <body>
 	<c:import url="cabecalho.jsp" />
 
-	<form action=../adicionaContato method="POST">
+	<form action=../AdicionaContato method="POST">
 		<p>
 			NOME: <input type="text" name="nome" />
 		</p>
