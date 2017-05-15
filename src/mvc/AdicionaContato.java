@@ -1,6 +1,7 @@
-package view;
+package mvc;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +24,8 @@ public class AdicionaContato extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ContatoService dao = new ContatoService();
+		Connection conn = (Connection) req.getAttribute("connection");
+		ContatoService dao = new ContatoService(conn);
 		Contato contato = createContato(req);
 
 		dao.addContato(contato);

@@ -1,10 +1,12 @@
 package mvc;
 
+import java.sql.Connection;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.ContatoDAO;
+import control.ContatoService;
 
 @WebServlet("/RemoveContatoById")
 public class RemoveContatoById implements Logica {
@@ -13,11 +15,12 @@ public class RemoveContatoById implements Logica {
 	public String executa(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
 		System.out.println("executando");
-		ContatoDAO dao = new ContatoDAO();
+		Connection conn = (Connection) req.getAttribute("connection");
+
+		ContatoService dao = new ContatoService(conn);
 		Long id = Long.parseLong(req.getParameter("id"));
 
-		dao.removeById(id);
-
+		dao.removePorId(id);
 		return "/jsp/remove-contato.jsp";
 
 	}

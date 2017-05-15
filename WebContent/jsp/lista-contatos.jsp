@@ -7,7 +7,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="dao"%>
 
-<jsp:useBean id="dao" class="control.ContatoService" />
 <meta lang="charset-UTF8" />
 <title>Contatos</title>
 </head>
@@ -21,23 +20,24 @@
 			<th>ENDERECO</th>
 			<th>NASCIMENTO</th>
 		</tr>
-		<c:forEach var="contato" items="${dao.getContatos()}" varStatus="id">
+		<c:forEach var="contato" items="${contatos}" varStatus="id">
+			<tr>
+				<td>${id.count}</td>
+				<c:choose>
+					<c:when test="${not empty contato.getValue().nome}">
+						<td>${contato.getValue().nome}</td>
+					</c:when>
+					<c:otherwise>
+						<td><strong>Empty</strong></td>
+					</c:otherwise>
+				</c:choose>
 
-
-			<td>${id.count}</td>
-			<c:choose>
-				<c:when test="${not empty contato.getValue().nome}">
-					<td>${contato.getValue().nome}</td>
-				</c:when>
-				<c:otherwise>
-					<td><strong>Empty</strong></td>
-				</c:otherwise>
-			</c:choose>
-
-			<td>${contato.getValue().email}</td>
-			<td>${contato.getValue().endereco}</td>
-			<td><fmt:formatDate
-					value="${contato.getValue().dataNascimento.time}" pattern="dd/MM/y" /></td>
+				<td>${contato.getValue().email}</td>
+				<td>${contato.getValue().endereco}</td>
+				<td><fmt:formatDate
+						value="${contato.getValue().dataNascimento.time}"
+						pattern="dd/MM/y" /></td>
+			</tr>
 		</c:forEach>
 	</table>
 	<c:import url="rodape.jsp" />

@@ -1,3 +1,4 @@
+<%@page import="java.sql.Connection"%>
 <%@page import="model.Contato"%>
 <%@page import="control.ContatoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,6 +22,7 @@
 	<nav>
 		<ul>
 			<li><a href="jsp/adiciona-contato.jsp">adicionar</a></li>
+			<li><a href="ListaContatos">lista</a></li>
 		</ul>
 	</nav>
 	<section>
@@ -32,7 +34,7 @@
 				<th>NASCIMENTO</th>
 			</tr>
 			<%
-				ContatoService dao = new ContatoService();
+				ContatoService dao = new ContatoService(ConnectionFactory.getConnection());
 				Contato contato = null;
 
 				Map<String, ?> contatos = dao.getContatos();

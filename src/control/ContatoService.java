@@ -1,5 +1,6 @@
 package control;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -7,8 +8,13 @@ import model.Contato;
 import model.LogicaDeNegocioException;
 
 public class ContatoService  {
-	ContatoDAO dao = new ContatoDAO();
-
+	
+	ContatoDAO dao;
+	
+	public ContatoService(Connection conn) {
+		this.dao = new ContatoDAO(conn);
+	}
+	
 	public void addContato(Contato contato) {
 		try {
 			dao.addContato(contato);

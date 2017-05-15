@@ -15,9 +15,13 @@ import model.LogicaDeNegocioException;
 
 public class ContatoDAO {
 
-	private Connection conn = ConnectionFactory.getConnection();
+	private Connection conn;
 	private PreparedStatement stmt = null;
 
+	public ContatoDAO(Connection conn) {
+			this.conn = conn;
+	}
+	
 	public void addContato(Contato contato) throws SQLException {
 		String sql = "insert into contatos " + "(nome, email, endereco, dataNascimento)" + "values(?, ?, ?, ?)";
 
